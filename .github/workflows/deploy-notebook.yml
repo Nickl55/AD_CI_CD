@@ -134,7 +134,7 @@ jobs:
                 "source": "WORKSPACE",
                 "base_parameters": {
                   "storage-name": "storagedb721",
-                  "container": "storage"
+                  "container": "bronze"
                 }
               },
               "existing_cluster_id": "$CLUSTER_ID",
