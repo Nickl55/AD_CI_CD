@@ -160,7 +160,7 @@ jobs:
                   "task_key": "EXTRACT"
                 }
               ]
-            }
+            },
             {
               "task_key": "LOAD",
               "description": "Ejecuta notebook ntbk_2 con parámetros",
