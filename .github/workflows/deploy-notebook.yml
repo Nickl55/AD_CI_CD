@@ -127,6 +127,20 @@ jobs:
           "format": "MULTI_TASK",
           "tasks": [
             {
+              "task_key": "DDL",
+              "description": "Ejecuta notebook DDL con parámetros",
+              "notebook_task": {
+                "notebook_path": "/py/scripts/main/DLLs_Project",
+                "source": "WORKSPACE",
+                "base_parameters": {
+                  "storageLocation": "abfss://bronze@storagedb721.dfs.core.windows.net"
+                }
+              },
+              "existing_cluster_id": "$CLUSTER_ID",
+              "timeout_seconds": 3600,
+              "max_retries": 2
+            },
+            {
               "task_key": "EXTRACT",
               "description": "Ejecuta notebook EXTRACT con parámetros",
               "notebook_task": {
