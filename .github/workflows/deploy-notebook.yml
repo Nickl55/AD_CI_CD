@@ -128,12 +128,13 @@ jobs:
           "tasks": [
             {
               "task_key": "EXTRACT",
-              "description": "Ejecuta notebook ntbk_1 con parámetros",
+              "description": "Ejecuta notebook EXTRACT con parámetros",
               "notebook_task": {
                 "notebook_path": "/py/scripts/main/Extract_Project",
                 "source": "WORKSPACE",
                 "base_parameters": {
-                  "storageLocation": "storage"
+                  "storage-name": "storagedb721",
+                  "container": "storage"
                 }
               },
               "existing_cluster_id": "$CLUSTER_ID",
@@ -142,14 +143,14 @@ jobs:
             },
             {
               "task_key": "TRANSFORM",
-              "description": "Ejecuta notebook ntbk_2 con parámetros",
+              "description": "Ejecuta notebook TRANSFORM con parámetros",
               "notebook_task": {
                 "notebook_path": "/py/scripts/main/Transform_Project",
                 "source": "WORKSPACE",
                 "base_parameters": {
-                  "inputPath": "/data/input",
-                  "outputPath": "/data/output",
-                  "processDate": "$(date +%Y-%m-%d)"
+                  "schema_source": "ct_project.bronze",
+                  "schema_sink": "ct_project.silver",
+                  "storage-location": "abfss://silver@storagedb721.dfs.core.windows.net/"
                 }
               },
               "existing_cluster_id": "$CLUSTER_ID",
@@ -163,14 +164,14 @@ jobs:
             },
             {
               "task_key": "LOAD",
-              "description": "Ejecuta notebook ntbk_2 con parámetros",
+              "description": "Ejecuta notebook LOAD con parámetros",
               "notebook_task": {
                 "notebook_path": "/py/scripts/main/Load_Project",
                 "source": "WORKSPACE",
                 "base_parameters": {
-                  "inputPath": "/data/input",
-                  "outputPath": "/data/output",
-                  "processDate": "$(date +%Y-%m-%d)"
+                  "schema_source": "ct_project.silver",
+                  "schema_sink": "ct_project.golden",
+                  "storage-location": "abfss://gold@storagedb721.dfs.core.windows.net/"
                 }
               },
               "existing_cluster_id": "$CLUSTER_ID",
